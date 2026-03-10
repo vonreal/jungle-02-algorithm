@@ -2,21 +2,23 @@
 # 문제 링크: https://www.acmicpc.net/problem/9020
 import sys
 
+MAX = 10000
+
 input = sys.stdin.readline
 
 T = int(input())
-is_primes = [True] * 10001
+is_primes = [True] * (MAX + 1)
 is_primes[0] = is_primes[1] = False
 
-for num in range(10001):
+for num in range(2, int(MAX ** 0.5) + 1):
     if is_primes[num]:
-        for i in range(num*num, 10001, num):
+        for i in range(num*num, MAX + 1, num):
             is_primes[i] = False
 
 for _ in range(T):
     N = int(input())
 
-    half = int(N/2)
+    half = N // 2
 
     for i in range(half, 0, -1):
         if not is_primes[i]:
@@ -27,8 +29,6 @@ for _ in range(T):
 
         print(i, N-i)
         break
-
-
 
 
 '''
