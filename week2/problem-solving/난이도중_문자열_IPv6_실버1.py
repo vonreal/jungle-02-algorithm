@@ -1,6 +1,42 @@
 # 문자열 - IPv6 (백준 실버1)
 # 문제 링크: https://www.acmicpc.net/problem/3107
 
+'''
+# 개선 풀이 , 피드백 with AI
+# 달라진 점 -> 문제의 단위: 블록 단위로 잡기
+
+Ideas
+    1. '::' 기준으로 왼쪽, 오른쪽 블록을 판단하기
+    2. 빈 블록은 '0000'채워주기
+    3. 각 블록을 4자리로 맞춰주기 1 -> 0001
+    4. ':'로 합치기
+'''
+before_ipv6 = input().strip()
+origin_ipv6 = []
+
+def fill_block(target):
+    if not target:
+        return []
+    return [ele.zfill(4) for ele in target.split(':')]
+
+if '::' in before_ipv6:
+    left_blocks, right_blocks = before_ipv6.split('::')
+
+    left = fill_block(left_blocks)
+    right = fill_block(right_blocks)
+
+    empty_block_count = 8 - (len(left) + len(right))
+    origin_ipv6 = left + ['0000'] * empty_block_count + right
+else:
+    origin_ipv6 = fill_block(before_ipv6)
+
+print(":".join(origin_ipv6))
+
+'''
+# 첫 풀이
+# 현재는 문제의 단위를 문자로 잡고 있음. 그래서 디버깅이 더 어려운 문제가 발생함.
+# 또 split을 ':'로 보고 있는데 그러면 '::'일때 추가 처리가 필요해짐.
+
 before_ipv6 = input().split(':')
 origin_ipv6 = list('0000:0000:0000:0000:0000:0000:0000:0000')
 
@@ -20,7 +56,7 @@ for index, ipv6 in enumerate(before_ipv6):
     current_index += 5
 
 print("".join(origin_ipv6))
-
+'''
 
 '''
 [Algorithm Design Canvas]
