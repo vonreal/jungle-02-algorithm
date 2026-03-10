@@ -3,29 +3,19 @@
 
 N = int(input())
 
-count = 0
-orders = []
+print(2**N - 1) # 이동횟수 바로 구하기
 
-def move(N, x, y):
-    global count
+def move(n, x, y):
+    if n == 1:
+        print(x, y)
+        return
 
-    count += 1
+    move(n-1, x, 6 - x - y)
+    print(x, y)
+    move(n-1, 6 - x - y, y)
 
-    if N > 1:
-        move(N-1, x, 6 - x - y)
-    
-    if N <= 20:
-        orders.append([x, y])
-
-    if N > 1:
-        move(N-1, 6 - x - y, y)
-
-move(N,1,3)
-
-print(count)
-if orders:
-    print('\n'.join(f"{a} {b}" for a, b in orders))
-
+if N <= 20:
+    move(N,1,3)
 
 '''
 [Algorithm Design Canvas]
