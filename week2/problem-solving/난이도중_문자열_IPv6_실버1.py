@@ -32,6 +32,21 @@ else:
 
 print(":".join(origin_ipv6))
 
+# 파이써닉한 방법
+
+s = input().strip()
+
+if '::' in s:
+    left, right = s.split("::")
+    left_parts = left.split(":") if left else []
+    right_parts = right.split(":") if right else []
+    missing = 8 - (len(left_parts) + len(right_parts))
+    parts = left_parts + ['0'] * missing + right_parts
+else:
+    parts = s.split(":")
+    
+print(':'.join(part.zfill(4) for part in parts))
+
 '''
 # 첫 풀이
 # 현재는 문제의 단위를 문자로 잡고 있음. 그래서 디버깅이 더 어려운 문제가 발생함.
