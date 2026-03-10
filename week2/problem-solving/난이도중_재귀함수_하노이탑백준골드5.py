@@ -10,9 +10,9 @@ def move(n, x, y):
         print(x, y)
         return
 
-    move(n-1, x, 6 - x - y)
+    move(n-1, x, 6 - x - y) # 시작 -> 중간
     print(x, y)
-    move(n-1, 6 - x - y, y)
+    move(n-1, 6 - x - y, y) # 중간 -> 끝
 
 if N <= 20:
     move(N,1,3)
