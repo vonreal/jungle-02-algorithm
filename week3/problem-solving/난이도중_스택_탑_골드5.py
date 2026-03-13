@@ -5,22 +5,26 @@ input = sys.stdin.readline
 _ = input()
 
 tops = [int(top) for top in input().split()]
+
 stack = []
+result = []
 
 for seq, top in enumerate(tops, 1):
     while stack and stack[-1][1] < top:
         stack.pop()
 
     if not stack:
-        print(0, end=' ')
+        result.append('0')
     else:
-        print(stack[-1][0], end=' ')
+        result.append(str(stack[-1][0]))
 
     stack.append((seq, top))
+
+print(" ".join(result))
      
     
 '''
-재귀
+스택
 
 0. 조건
     시간제한: 1.5초 (1500만번)
