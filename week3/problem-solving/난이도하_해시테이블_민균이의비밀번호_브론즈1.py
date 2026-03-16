@@ -10,15 +10,11 @@ def check_password():
 
     for _ in range(N):
         word = input().strip()
-        reverse_word = word[::-1]
 
-        if reverse_word == word:
-            return word
-        
-        if reverse_word in words:
-            return word
-        
         words.add(word)
+
+        if word[::-1] in words:
+            return word
 
 password = check_password()
 print(len(password), password[len(password) // 2])
