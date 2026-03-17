@@ -1,7 +1,7 @@
 # 이분탐색 - 두 용액 (백준 골드5)
 # 문제 링크: https://www.acmicpc.net/problem/2470
 import sys
-import bisect
+from bisect import bisect_left
 input = sys.stdin.readline
 
 N = int(input())
@@ -35,12 +35,45 @@ def solve_two_pointer():
 
     print(*min_select_nums)
 
+# 핵심연산: 하나를 pick 했을때 pick한 것의 합이 0이 되게 만드는 가장 이상적인 짝꿍 -pick을 찾는 것 (혹은 그에 수렴하는 것)
+def custom_bisect_left(datas, target, lo):
+    left = lo
+    right = len(datas) - 1
+    while left < right:
+        mid = (left + right) // 2
+        
+        if datas[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+    
+    return left
+
 def solve_binary_search():
-    # 1. 하나의 용액을 선택한다.
+    min_sum = float('inf')
+    answers = [0, 0]
 
-    pass
+    for i in range(N - 1):
+        target = -datas[i]
 
-solve_two_pointer()
+        # idx = bisect_left(datas, target, lo=i+1)
+        idx = custom_bisect_left(datas, target, lo=i+1)
+
+        if idx < N:
+            current_sum = datas[i] + datas[idx]
+            if abs(current_sum) < abs(min_sum):
+                min_sum = current_sum
+                answers = [datas[i], datas[idx]]
+        
+        if idx - 1 > i:
+            current_sum = datas[i] + datas[idx - 1]
+            if abs(current_sum) < abs(min_sum):
+                min_sum = current_sum
+                answers = [datas[i], datas[idx - 1]]
+
+    print(answers[0], answers[1])
+
+solve_binary_search()
 
 '''
 시간 제한: 1초
