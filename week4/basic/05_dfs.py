@@ -43,14 +43,18 @@ def dfs(graph, start, visited=None):
         방문 순서 리스트
     """
     # TODO: visited가 None이면 초기화
-    pass
+    if not visited:
+        visited = []
     
     # TODO: 현재 정점 방문
-    pass
+    visited.append(start)
     
     # TODO: 인접한 정점들에 대해 재귀
     ## 방문하지 않은 정점이면 재귀 호출
-    pass
+    
+    for adj_node in graph[start]:
+        if adj_node not in visited: # O(N) set으로 처리하는게 좋음
+            dfs(graph, adj_node, visited)
     
     return visited
 
